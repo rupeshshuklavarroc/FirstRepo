@@ -1,0 +1,35 @@
+{% extends 'wipscreen/main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="POST" id="reelEntryForm">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="mb-3 row">
+                                    <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label">{{ field.label }}</label>
+                                    <div class="col-sm-8">
+                                        {% if field.id == 'id_reel_no' or field.id == 'id_bo_no' or field.id == 'id_status' or field.id == 'id_location' %}
+                                            <input type="text" class="form-control" id="{{ field.id_for_label }}" value="{{ field.value|default:'' }}" readonly>
+                                        {% else %}
+                                            {{ field }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="mb-3 row">
+                                <div class="col-sm-8 offset-sm-4">
+                                    <button type="submit" class="btn btn-sm btn-danger">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
